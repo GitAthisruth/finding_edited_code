@@ -30,13 +30,22 @@ if os.path.exists(originalFilePath):
     with open(originalFilePath,"r") as f:
         original_Content = f.read()
         # print(original_Content)
-        # c.execute(f"INSERT INTO mainfile (file_name, content,id) VALUES (?, ?, ?)", ('org.py', original_Content, id))       
-c.execute("SELECT * FROM mainfile WHERE id = '2025'")
+        c.execute(f"INSERT INTO mainfile (file_name, content,id) VALUES (?, ?, ?)", ('org.py', original_Content, id))   
+    if os.path.exists(backupFilePath):
+            with open(backupFilePath,"r") as g:
+                backup_File_Content = g.read() 
+                c.execute(f"INSERT INTO mainfile (file_name, content,id) VALUES (?, ?, ?)", ('bkfile.py', backup_File_Content, "2026"))   
+    else:
+        with open(backupFilePath, "w") as g:
+            g.write(original_Content)
+            print(f"Backup file created: {backupFilePath}")   
+c.execute("SELECT * FROM mainfile WHERE id = '2025' OR id = '2026'")
 
-original_Content_Db = c.fetchone()
+original_Content_Db = c.fetchall()
 
 print(original_Content_Db)
 
 conn.commit()
 
 conn.close()
+
