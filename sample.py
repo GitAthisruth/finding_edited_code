@@ -19,6 +19,8 @@ if os.path.exists(originalFilePath):
                 for index in range(len(original_content)):
                     if original_content[index]!=backup_File_Content[index]:
                         print(f"line :{index+1} of {original_Basename} is changed from {backup_File_Content[index].strip()} to {original_content[index].strip()} in backupfile: {backup_Basename}")
+            else:
+                print("no code changes")
 
     else:
         with open(backupFilePath, "w") as g:
