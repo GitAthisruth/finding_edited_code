@@ -57,12 +57,13 @@ original_Content_Lines = original_Content_Db[1].splitlines()
 backup_Content_Lines = backup_Content_Db[1].splitlines()
 # print(original_Content_Lines)
 if original_Content_Lines != backup_Content_Lines:
-                print(f"editing file is modified..")
-                for index in range(len(original_Content_Lines)):
-                    print(index)
-                    if original_Content_Lines[index]!=backup_Content_Lines[index]:
-                        print(f"line :{index+1} of {original_Basename} is changed from {backup_File_Content[index].strip()} to {original_Content_Lines[index].strip()} in backupfile: {backup_Basename}")
+    print(f"editing file is modified..")
 else:
-    print("no code changes")
+    print("no code change")
 
-
+max_len = max(len(original_Content_Lines),len(backup_Content_Lines))
+for index in range(max_len):
+    original_File_Line = original_Content_Lines[index].strip() if index < len(original_Content_Lines) else "<no line>"
+    backup_File_Line = backup_Content_Lines[index].strip() if index < len(backup_Content_Lines) else "<no line>"
+    if original_File_Line != backup_File_Line:
+        print(f"line :{index+1} of {original_Basename} is changed from {backup_File_Line} to {original_File_Line} in backupfile: {backup_Basename}")
